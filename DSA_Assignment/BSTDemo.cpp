@@ -9,7 +9,7 @@ using namespace std;
 
 void displayMenu();
 
-int main()
+void notmain()
 {
 	BST bst;
 	ItemType target;

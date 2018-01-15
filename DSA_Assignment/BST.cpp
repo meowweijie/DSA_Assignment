@@ -28,12 +28,24 @@ BinaryNode* BST::search(BinaryNode* t, ItemType target)
 	else
 	{
 		if (t->item == target)	// item found
+		{
+			if (t == root)
+				cout << "ROOT" << endl;
+			else
+				cout << "Found!!!" << endl;
 			return t;
+		}
 		else
 		if (target < t->item)	// search in left subtree
-		   return search(t->left, target);  
+		{
+			cout << "Searching the left subtree" << endl;
+			return search(t->left, target);
+		}
 		else // search in right subtree
-		   return search(t->right, target);  
+		{
+			cout << "Searchign the right subtree" << endl;
+			return search(t->right, target);
+		}
 	}
 }
 

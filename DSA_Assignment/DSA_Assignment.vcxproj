@@ -150,7 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BST.cpp" />
-    <ClCompile Include="BSTDemo.cpp" />
+    <ClCompile Include="Assignment.cpp" />
     <ClCompile Include="DSA_Assignment.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

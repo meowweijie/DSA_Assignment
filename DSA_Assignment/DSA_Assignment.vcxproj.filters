@@ -32,13 +32,13 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DSA_Assignment.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BST.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BSTDemo.cpp">
+    <ClCompile Include="Assignment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DSA_Assignment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

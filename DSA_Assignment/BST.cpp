@@ -18,7 +18,21 @@ BST::BST()
 // search an item in the binary search tree
 BinaryNode* BST::search(ItemType target)
 {
-	return search(root, target);
+	if (root == NULL)
+	{
+		return NULL;	//Item not found
+	}
+	else if (root->item == target)
+	{
+		cout << "ROOT ";
+		return root;
+	}
+	else
+	{
+		cout << "ROOT ";
+		return search(root, target);
+	}
+	
 }
 
 BinaryNode* BST::search(BinaryNode* t, ItemType target)
@@ -28,12 +42,20 @@ BinaryNode* BST::search(BinaryNode* t, ItemType target)
 	else
 	{
 		if (t->item == target)	// item found
+		{
 			return t;
-		else
-		if (target < t->item)	// search in left subtree
-		   return search(t->left, target);  
-		else // search in right subtree
-		   return search(t->right, target);  
+		}
+		else     // search for item in the subtrees
+			if (target < t->item)	// search in left subtree
+			{
+				cout << "> L ";
+				return search(t->left, target);
+			}
+			else // search in right subtree
+			{
+				cout << "> R ";
+				return search(t->right, target);
+			}
 	}
 }
 
@@ -41,6 +63,7 @@ BinaryNode* BST::search(BinaryNode* t, ItemType target)
 void BST::insert(ItemType item)
 {
 	insert(root, item);
+
 }
 
 void BST::insert(BinaryNode* &t, ItemType item)
@@ -55,7 +78,7 @@ void BST::insert(BinaryNode* &t, ItemType item)
 		newNode->height = 0;
 		t = newNode;
 
-		
+		cout << item << " inserted!" << endl;
 	}
 	else if (item < t->item)
 	{
@@ -113,6 +136,7 @@ void BST::insert(BinaryNode* &t, ItemType item)
 	// Set the height
 	t->height = max(height(t->left), height(t->right)) + 1;
 
+	
 
 }
 
@@ -126,10 +150,9 @@ void BST::remove(BinaryNode* &t, ItemType target)
 {
 	// search for the node to be deleted
 
-	// To track the parent node of the node to be deleted
+	// To track the node to be deleted
 	BinaryNode* temp;
-	// To track the parent node to be balanced
-	//BinaryNode* temp2 = NULL;
+	
 
 	//Element not found
 	if (t == NULL)
@@ -187,6 +210,8 @@ void BST::remove(BinaryNode* &t, ItemType target)
 			t->item = n;
 
 		}
+
+		
 	}
 	
 

@@ -32,7 +32,7 @@ BinaryNode* BST::search(ItemType target)
 		cout << "ROOT ";
 		return search(root, target);
 	}
-	
+
 }
 
 BinaryNode* BST::search(BinaryNode* t, ItemType target)
@@ -43,6 +43,7 @@ BinaryNode* BST::search(BinaryNode* t, ItemType target)
 	{
 		if (t->item == target)	// item found
 		{
+			cout << "\nItem Found!";
 			return t;
 		}
 		else     // search for item in the subtrees
@@ -68,7 +69,7 @@ void BST::insert(ItemType item)
 
 void BST::insert(BinaryNode* &t, ItemType item)
 {
-	
+
 	if (t == NULL)	//Insert the node at the empty location
 	{
 		BinaryNode *newNode = new BinaryNode;
@@ -80,12 +81,13 @@ void BST::insert(BinaryNode* &t, ItemType item)
 
 		cout << item << " inserted!" << endl;
 	}
+	// Everything below is when the BinaryNode is not null
 	else if (item < t->item)
 	{
 		insert(t->left, item);  // insert in left subtree
 
-		// AVL Code
-		// Check the Balance factor
+								// AVL Code
+								// Check the Balance factor
 		if (getBalance(t) == 2)		// Unbalanced
 		{
 			// Left heavy
@@ -108,10 +110,11 @@ void BST::insert(BinaryNode* &t, ItemType item)
 	{
 		insert(t->right, item); // insert in right subtree
 
-		// AVL Code
-		// Check the Balance factor
+								// AVL Code
+								// Check the Balance factor
 		if (getBalance(t) == 2)		// Unbalanced
 		{
+			
 			// Right heavy
 			if (item > t->right->item)
 			{
@@ -135,9 +138,6 @@ void BST::insert(BinaryNode* &t, ItemType item)
 
 	// Set the height
 	t->height = max(height(t->left), height(t->right)) + 1;
-
-	
-
 }
 
 // delete an item from the binary search tree
@@ -152,7 +152,7 @@ void BST::remove(BinaryNode* &t, ItemType target)
 
 	// To track the node to be deleted
 	BinaryNode* temp;
-	
+
 
 	//Element not found
 	if (t == NULL)
@@ -211,9 +211,9 @@ void BST::remove(BinaryNode* &t, ItemType target)
 
 		}
 
-		
+
 	}
-	
+
 
 	// Check if t = NULL
 	if (t == NULL)
@@ -232,7 +232,7 @@ void BST::remove(BinaryNode* &t, ItemType target)
 			temp = t->right;
 
 			// right right case
-			if ((height(temp->left)-height(temp->right)) <= 0)
+			if ((height(temp->left) - height(temp->right)) <= 0)
 				t = leftRotate(t);
 			// right left case
 			else
@@ -250,15 +250,13 @@ void BST::remove(BinaryNode* &t, ItemType target)
 			else
 				t = leftRightRotate(t);
 		}
-	
-		
 	}
 }
 
 // traverse the binary search tree in inorder
 void BST::inorder()
 {
-	if ( isEmpty() )
+	if (isEmpty())
 		cout << "No item found" << endl;
 	else
 		inorder(root);
@@ -269,14 +267,15 @@ void BST::inorder(BinaryNode* t)
 	if (t != NULL)
 	{
 		inorder(t->left);
-		cout << t->item <<" " << t->height<< endl;
+		cout << t->item << ", ";
+		//cout << t->item << " " << t->height << endl;
 		inorder(t->right);
 	}
 }
 // traverse the binary search tree in preorder
 void BST::preorder()
 {
-	if ( isEmpty() )
+	if (isEmpty())
 		cout << "No item found" << endl;
 	else
 		preorder(root);
@@ -295,7 +294,7 @@ void BST::preorder(BinaryNode* t)
 // traverse the binary search tree in postorder
 void BST::postorder()
 {
-	if ( isEmpty() )
+	if (isEmpty())
 		cout << "No item found" << endl;
 	else
 		postorder(root);
@@ -311,6 +310,17 @@ void BST::postorder(BinaryNode* t)
 	}
 }
 
+// traverse the binary search tree level by level
+void BST::levelbylevel()
+{
+
+}
+
+void BST::levelbylevel(BinaryNode* t)
+{
+
+}
+
 
 
 // compute the height of the binary search tree
@@ -324,11 +334,7 @@ int BST::getHeight(BinaryNode* t)
 	if (t == NULL)
 		return 0;	//No height
 	else
-	{
 		return 1 + max(getHeight(t->left), getHeight(t->right));
-
-	}
-		
 }
 
 // count the number of nodes in the binary search tree
@@ -362,7 +368,7 @@ bool BST::isBalanced(BinaryNode *t)
 		bool isBalancedNode = (abs(leftHeight - rightHeight) <= 1);
 
 		return (isBalancedNode && isBalanced(t->left) && isBalanced(t->right));
-		
+
 	}
 	else
 		return true;
@@ -385,10 +391,7 @@ int BST::max(int a, int b)
 int BST::getBalance(BinaryNode *t)
 {
 	if (t != NULL)	// Get the balance factor of the node.
-	{
 		return abs(getHeight(t->left) - getHeight(t->right));
-
-	}
 	else
 		return 0;		// Invalid
 }
@@ -400,9 +403,7 @@ int BST::height(BinaryNode *t)
 	if (t == NULL)
 		return 0;	//No height
 	else
-	{
 		return t->height;
-	}
 }
 
 // AVL Rotation code
@@ -441,3 +442,4 @@ BinaryNode* BST::leftRightRotate(BinaryNode* &t)
 	t->left = leftRotate(t->left);
 	return rightRotate(t);
 }
+

@@ -30,22 +30,31 @@ int main()
 		cin >> choice;
 		if (choice == 1)
 		{
-			cout << "Enter the value you want to search: " << endl;
+			cout << "Enter the value you want to search: ";
 			int search;
 			cin >> search;
 			bst.search(search);
+			cout << "\n"; // Formattinh after bst.search();
 		}
 		else if (choice == 2)
 		{
-
+			cout << "Enter a value to add into the tree: ";
+			int value;
+			cin >> value;
+			bst.insert(value);
 		}
 		else if (choice == 3)
 		{
-
+			cout << "Enter a value to remove from the tree: ";
+			int value;
+			cin >> value;
+			bst.remove(value);
 		}
 		else if (choice == 4)
 		{
-
+			cout << "The values of the tree in ascending order are ~" << endl;
+			bst.inorder();
+			cout << "\n"; // Formatting after bst.inorder();
 		}
 		else if (choice == 5)
 		{

@@ -38,6 +38,10 @@ class BST
 	void postorder();
 	void postorder(BinaryNode* t);
 
+	// traverse the binary search tree level by level
+	void levelbylevel();
+	void levelbylevel(BinaryNode* t);
+
 	// compute the height of the binary search tree
 	int getHeight();
 	int getHeight(BinaryNode* t);

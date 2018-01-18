@@ -1,4 +1,5 @@
 #pragma once
+#include "BinaryNode.h"
 typedef int ItemType;
 
 /** ADT queue - Pointer-based implementation. */
@@ -22,6 +23,7 @@ public:
    bool enqueue(const ItemType& item);
    bool dequeue();
    bool dequeue(ItemType& item);
-   void getFront(ItemType& item) const;
+   ItemType getFront();
+   void DisplayQueue();
 
 };

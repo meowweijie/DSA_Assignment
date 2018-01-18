@@ -8,7 +8,9 @@ using namespace std;
 #include <cstddef>  // for NULL
 #include <new>      // for bad_alloc
 #include "BST.h"
-
+#include "Queue.h"
+#include "BinaryNode.h"
+#include <string>
 // constructor
 BST::BST()
 {
@@ -59,6 +61,35 @@ BinaryNode* BST::search(BinaryNode* t, ItemType target)
 			}
 	}
 }
+
+// search an item in the binary search tree
+BinaryNode* BST::normalSearch(ItemType target)
+{
+	if (root == NULL)
+		return NULL;	//Item not found
+	else if (root->item == target)
+		return root;
+	else
+		return normalSearch(root, target);
+
+}
+
+BinaryNode* BST::normalSearch(BinaryNode* t, ItemType target)
+{
+	if (t == NULL)	// item not found
+		return NULL;
+	else
+	{
+		if (t->item == target)	// item found
+			return t;
+		else     // search for item in the subtrees
+			if (target < t->item)	// search in left subtree
+				return normalSearch(t->left, target);
+			else // search in right subtree
+				return normalSearch(t->right, target);
+	}
+}
+
 
 // insert an item to the binary search tree
 void BST::insert(ItemType item)
@@ -165,6 +196,7 @@ void BST::remove(BinaryNode* &t, ItemType target)
 	}
 	else if (target > t->item)
 	{
+		cout << "Searching right side" << endl;
 		remove(t->right, target);
 	}
 
@@ -185,14 +217,14 @@ void BST::remove(BinaryNode* &t, ItemType target)
 		{
 			temp = t->right;
 			t = t->right;
-			free(temp);
+			free(t->right);
 		}
 		// node has a left child
 		else if (t->right == NULL)
 		{
 			temp = t->left;
 			t = t->left;
-			free(temp);
+			free(t->left);
 		}
 
 		// -----------------------  case 3 : node has 2 children  ------------------
@@ -205,21 +237,19 @@ void BST::remove(BinaryNode* &t, ItemType target)
 			// replace the node’s item with that of the successor
 			int n = successor->item;
 			// delete the successor (either case 1 or case 2)
-			remove(t, n);
+			remove(t->left, n);
 			// replace the node’s item with that of the successor
 			t->item = n;
-
 		}
-
-
 	}
-
-
 	// Check if t = NULL
 	if (t == NULL)
 		return;
 
 	// Update height
+	cout << t->height << endl;
+	cout << t->right->height << endl;
+	cout << t->left->height << endl;
 	t->height = max(height(t->left), height(t->right)) + 1;
 
 	// If node is unbalanced
@@ -311,18 +341,37 @@ void BST::postorder(BinaryNode* t)
 }
 
 // traverse the binary search tree level by level
-void BST::levelbylevel()
+void BST::levelbylevel(int k)
 {
+	if (isEmpty())
+		cout << "No item found" << endl;
+	else
+	{
+		Queue q = Queue();
+		q.enqueue(root->item);
+		BinaryNode* temp;
+		int position = 1;
 
+		while (true)
+		{
+			if (position != k)
+			{
+				temp = normalSearch(q.getFront());
+				if (temp->left != NULL)
+					q.enqueue(temp->left->item);
+				if (temp->right != NULL)
+					q.enqueue(temp->right->item);
+				q.dequeue();
+				++position;
+			}
+			else // Need to dequeue and check the next one
+			{
+				cout << q.getFront() << endl;
+				break;
+			}
+		}
+	}
 }
-
-void BST::levelbylevel(BinaryNode* t)
-{
-
-}
-
-
-
 // compute the height of the binary search tree
 int BST::getHeight()
 {
@@ -443,3 +492,51 @@ BinaryNode* BST::leftRightRotate(BinaryNode* &t)
 	return rightRotate(t);
 }
 
+void BST::DisplayTree() 
+{
+	if (isEmpty())
+		cout << "No items found" << endl;
+
+	Queue q = Queue();
+	q.enqueue(root->item);
+	q.enqueue(NULL);
+	BinaryNode* temp;
+	int height = getHeight(root);
+	while (true)
+	{
+		if (height == 0)
+			break;
+		else
+		{
+			if (q.getFront() != NULL)
+			{
+				if (q.getFront() != -1)
+				{
+					temp = normalSearch(q.getFront());
+					if (temp->left != NULL)
+						q.enqueue(temp->left->item);
+					else
+						q.enqueue(-1);
+					if (temp->right != NULL)
+						q.enqueue(temp->right->item);
+					else
+						q.enqueue(-1);
+				}
+
+				for (int i = 0; i < height * 3; i++)
+					cout << " ";
+				if (q.getFront() != -1)
+					cout << q.getFront();
+				else
+					cout << " ";
+			}
+			else
+			{
+				cout << "\n";
+				q.enqueue(NULL);
+				--height;
+			}
+			q.dequeue();
+		}
+	}
+}

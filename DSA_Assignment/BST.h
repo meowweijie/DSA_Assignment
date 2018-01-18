@@ -18,6 +18,9 @@ class BST
 	BinaryNode* search(ItemType target);
 	BinaryNode* search(BinaryNode* root, ItemType target);
 
+	BinaryNode* normalSearch(ItemType target);
+	BinaryNode* normalSearch(BinaryNode* root, ItemType target);
+
 	// insert an item to the binary search tree
 	void insert(ItemType item);
 	void insert(BinaryNode* &root, ItemType item);
@@ -39,8 +42,7 @@ class BST
 	void postorder(BinaryNode* t);
 
 	// traverse the binary search tree level by level
-	void levelbylevel();
-	void levelbylevel(BinaryNode* t);
+	void levelbylevel(int k);
 
 	// compute the height of the binary search tree
 	int getHeight();
@@ -73,5 +75,7 @@ class BST
 	BinaryNode* rightLeftRotate(BinaryNode* &t);
 	BinaryNode* leftRotate(BinaryNode* &t);
 	BinaryNode* leftRightRotate(BinaryNode* &t);
+
+	void DisplayTree();
 
 };

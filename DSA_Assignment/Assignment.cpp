@@ -3,7 +3,6 @@
 #include "BST.h"
 #include<iostream>
 #include <string>
-
 using namespace std;
 
 
@@ -34,7 +33,7 @@ int main()
 			int search;
 			cin >> search;
 			bst.search(search);
-			cout << "\n"; // Formattinh after bst.search();
+			cout << "\n"; // Formatting after bst.search();
 		}
 		else if (choice == 2)
 		{
@@ -58,11 +57,14 @@ int main()
 		}
 		else if (choice == 5)
 		{
-
+			cout << "Enter the position of the node you wish to find the value for: ";
+			int k;
+			cin >> k;
+			bst.levelbylevel(k);
 		}
 		else if (choice == 6)
 		{
-
+			bst.DisplayTree();
 		}
 		else if (choice == 0)
 			break;
